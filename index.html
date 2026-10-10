@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Retail Demand Forecasting and Inventory Optimization Dashboard using sample FMCG data.">
+  <title>Retail Demand & Inventory Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-icon">RI</span><div><strong>RetailIQ</strong><small>Inventory Intelligence</small></div></div>
+    <nav>
+      <a class="nav-link active" href="#overview">▦ <span>Overview</span></a>
+      <a class="nav-link" href="#forecast">⌁ <span>Demand Forecast</span></a>
+      <a class="nav-link" href="#inventory">▤ <span>Inventory</span></a>
+      <a class="nav-link" href="#recommendations">✓ <span>Reorder Plan</span></a>
+    </nav>
+    <div class="sidebar-note"><span class="status-dot"></span> Demo data loaded<small>Sample FMCG retailer · Multan</small></div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div><p class="eyebrow">RETAIL OPERATIONS</p><h1>Demand & Inventory Dashboard</h1><p class="subtitle">A clear view of sales, stock health, and replenishment decisions.</p></div>
+      <div class="top-actions"><span class="demo-tag">DEMO DATA</span><button id="exportBtn" class="button secondary">Export inventory CSV</button></div>
+    </header>
+
+    <section id="overview">
+      <div class="section-heading"><div><h2>Overview</h2><p>Key indicators from the sample dataset</p></div><span class="date-label">Illustrative reporting period</span></div>
+      <div class="kpi-grid">
+        <article class="kpi-card"><div class="kpi-label">Total units sold <span>↗</span></div><div class="kpi-value" id="unitsSold">—</div><div class="kpi-foot">Across all listed products</div></article>
+        <article class="kpi-card"><div class="kpi-label">Estimated sales value <span>₨</span></div><div class="kpi-value" id="salesValue">—</div><div class="kpi-foot">Based on sample unit prices</div></article>
+        <article class="kpi-card"><div class="kpi-label">Products to reorder <span>!</span></div><div class="kpi-value" id="reorderCount">—</div><div class="kpi-foot">At or below reorder point</div></article>
+        <article class="kpi-card"><div class="kpi-label">Units to replenish <span>＋</span></div><div class="kpi-value" id="replenishUnits">—</div><div class="kpi-foot">Suggested quantity for 7-day cover</div></article>
+      </div>
+    </section>
+
+    <section id="forecast" class="panel">
+      <div class="section-heading"><div><h2>Demand Forecast</h2><p>Recent sample sales compared with a simple baseline forecast</p></div><select id="productSelect" aria-label="Select product"></select></div>
+      <div class="chart-wrap"><canvas id="forecastChart" aria-label="Sales and demand forecast chart"></canvas></div>
+      <p class="note"><strong>Method note:</strong> Forecast values use a simple moving-average-style demonstration. This is not a trained machine-learning model and should not be treated as a real business forecast.</p>
+    </section>
+
+    <section id="inventory" class="panel">
+      <div class="section-heading"><div><h2>Inventory Health</h2><p>Search products and check current stock status</p></div><input id="searchInput" class="search" type="search" placeholder="Search products..." aria-label="Search products"></div>
+      <div class="table-wrap"><table><thead><tr><th>Product</th><th>Category</th><th>Stock (units)</th><th>Avg. daily demand</th><th>Reorder point</th><th>Status</th></tr></thead><tbody id="inventoryBody"></tbody></table></div>
+      <p id="tableCount" class="table-foot"></p>
+    </section>
+
+    <section id="recommendations" class="panel">
+      <div class="section-heading"><div><h2>Reorder Recommendations</h2><p>Illustrative replenishment plan based on stock, demand, and lead time</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Product</th><th>Current stock</th><th>Reorder point</th><th>Target stock</th><th>Suggested order</th><th>Priority</th></tr></thead><tbody id="recommendationBody"></tbody></table></div>
+      <div class="formula-card"><strong>How the recommendation works</strong><p>Reorder point = average daily demand × supplier lead time + safety stock.</p><p>Suggested order = target stock − current stock, but never less than zero. The demo uses a 3-day lead time, 2 days of safety stock, and a 7-day target cover.</p></div>
+    </section>
+
+    <footer>Student project demonstration · Sample data only · Not connected to a real retailer</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
